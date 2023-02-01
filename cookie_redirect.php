@@ -25,4 +25,20 @@ function cookie_redirect_init(): cookieRedirect
     return cookieRedirect::getInstance();
 }
 
+
+register_activation_hook(__FILE__, cookieRedirect::defaultValues());
+
+
+function deleteValues()
+{
+    $delete_values = ['cookie_expiry_option', 'interval_timeout_option', 'access_page_option', 'redirect_page_option', 'redirect_method_option', 'unauthorised_access_url_option', 'unauthorised_access_message_option'];
+
+    if (get_option('delete_values_option') == 1) {
+        foreach ($delete_values as $delete_value) {
+            update_option($delete_value, '');
+        }
+    }
+}
+register_deactivation_hook(__FILE__, 'deleteValues');
+
 cookie_redirect_init();

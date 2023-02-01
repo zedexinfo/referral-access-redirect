@@ -50,6 +50,65 @@ if ( ! class_exists( "CrAdminMenu" ) ) {
 				'default'           => ''
 			];
 
+            $admin_menu = [
+                    'cookie_expiry_option' => array(
+                            'id' => 'cookie_expiry_time',
+                            'title' => 'Cookie Expiry Time (in seconds)',
+                            'callback' => 'cookie_expiry_callback',
+                            'page' => 'cd-setting-section',
+                            'section' => 'Cd_admin_setting_section'
+                    ),
+                    'interval_timeout_option' => array(
+                            'id' => 'interval_timeout',
+                            'title' => 'Set Interval Time (in seconds)',
+                            'callback' => 'interval_timeout_callback',
+                            'page' => 'cd-setting-section',
+                            'section' => 'Cd_admin_setting_section'
+                    ),
+                    'access_page_option' => array(
+                            'id' => 'access_page_url',
+                            'title' => 'Allowed Origin',
+                            'callback' => 'access_page_callback',
+                            'page' => 'cd-setting-section',
+                            'section' => 'Cd_admin_setting_section'
+                    ),
+                    'redirect_page_option' => array(
+                            'id' => 'redirect_page_url',
+                            'title' => 'URL of the page to be redirected to when cookie expires',
+                            'callback' => 'redirect_page_callback',
+                            'page' => 'cd-setting-section',
+                            'section' => 'Cd_admin_setting_section'
+                    ),
+                    'redirect_method_option' => array(
+                            'id' => 'redirect_method',
+                            'title' => 'Unauthorised access redirect Method',
+                            'callback' => 'redirect_method_callback',
+                            'page' => 'cd-setting-section',
+                            'section' => 'Cd_admin_setting_section'
+                    ),
+                    'unauthorised_access_url_option' => array(
+                            'id' => 'unauthorised_access_url',
+                            'title' => 'URL of the page to be redirected to when unauthorised access',
+                            'callback' => 'unauthorised_access_url_callback',
+                            'page' => 'cd-setting-section',
+                            'section' => 'Cd_admin_setting_section'
+                    ),
+                    'unauthorised_access_message_option' => array(
+                            'id' => 'unauthorised_access_message',
+                            'title' => 'Message to be shown when unauthorised access',
+                            'callback' => 'unauthorised_access_message_callback',
+                            'page' => 'cd-setting-section',
+                            'section' => 'Cd_admin_setting_section'
+                    ),
+                    'delete_values_option' => array(
+                            'id' => 'delete_values',
+                            'title' => 'Delete values on plugin deactivation',
+                            'callback' => 'delete_values_callback',
+                            'page' => 'cd-setting-section',
+                            'section' => 'Cd_admin_setting_section'
+                    )
+            ];
+
 			add_settings_section(
 				__( 'Cd_admin_setting_section' ),
 				__( 'Cookie Details' ),
@@ -57,68 +116,16 @@ if ( ! class_exists( "CrAdminMenu" ) ) {
 				'cd-setting-section'
 			);
 
-			register_setting( 'cd-setting-section', 'cookie_expiry_option' );
-			add_settings_field(
-				__( 'cookie_expiry_time' ),
-				__( 'Cookie Expiry Time (in seconds)' ),
-				[ $this, 'cookie_expiry_callback' ],
-				'cd-setting-section',
-				'Cd_admin_setting_section'
-			);
-
-			register_setting( 'cd-setting-section', 'interval_timeout_option' );
-			add_settings_field(
-				__( 'interval_timeout' ),
-				__( 'Set Interval Time (in seconds)' ),
-				[ $this, 'interval_timeout_callback' ],
-				'cd-setting-section',
-				'Cd_admin_setting_section'
-			);
-
-			register_setting( 'cd-setting-section', 'access_page_option', $register_field_type_url );
-			add_settings_field(
-				__( 'access_page_url' ),
-				__( 'Allowed Origin' ),
-				[ $this, 'access_page_callback' ],
-				'cd-setting-section',
-				'Cd_admin_setting_section'
-			);
-
-			register_setting( 'cd-setting-section', 'redirect_page_option', $register_field_type_url );
-			add_settings_field(
-				__( 'redirect_page_url' ),
-				__( 'URL of the page to be redirected to when cookie expires' ),
-				[ $this, 'redirect_page_callback' ],
-				'cd-setting-section',
-				'Cd_admin_setting_section'
-			);
-
-			register_setting( 'cd-setting-section', 'redirect_method_option' );
-			add_settings_field(
-				__( 'redirect_method' ),
-				__( 'Unauthorised access redirect Method' ),
-				[ $this, 'redirect_method_callback' ],
-				'cd-setting-section',
-				'Cd_admin_setting_section'
-			);
-
-			register_setting( 'cd-setting-section', 'unauthorised_access_url_option', $register_field_type_url );
-			add_settings_field(
-				__( 'unauthorised_access_url' ),
-				__( 'URL of the page to be redirected to when unauthorised access' ),
-				[ $this, 'unauthorised_access_url_callback' ],
-				'cd-setting-section',
-				'Cd_admin_setting_section'
-			);
-
-			register_setting( 'cd-setting-section', 'unauthorised_access_message_option' );
-			add_settings_field(
-				__( 'unauthorised_access_message' ),
-				__( 'Message to be shown when unauthorised access' ),
-				[ $this, 'unauthorised_access_message_callback' ],
-				'cd-setting-section',
-				'Cd_admin_setting_section'
-			);
+            foreach ($admin_menu as $key => $value){
+                register_setting( 'cd-setting-section', $key );
+                    add_settings_field(
+                        __( $value["id"] ),
+                        __( $value["title"] ),
+                        [ $this, $value["callback"] ],
+                        $value["page"],
+                        $value["section"]
+                    );
+            }
 		}
 
 
@@ -189,5 +196,12 @@ if ( ! class_exists( "CrAdminMenu" ) ) {
                    value="<?php echo isset( $unauthorised_access_message ) ? esc_attr( $unauthorised_access_message ) : ''; ?> ">
 			<?php
 		}
+
+        public function delete_values_callback(){
+            $delete_values = get_option('delete_values_option');
+            ?>
+            <input type="checkbox" name="delete_values_option" value="1" <?php checked( '1', $delete_values ); ?> />
+            <?php
+        }
 	}
 }

@@ -45,23 +45,24 @@ if ( ! class_exists( "CrCookie" ) ) {
 		}
 
 		public function set_cookie_and_redirect() {
-			$cookie_name  = "access_site";
-			$cookie_value = "access_site";
-			if ( ! isset( $_COOKIE[ $cookie_name ] ) ) {
-				$url = wp_get_raw_referer();
-				if ( str_contains( $this->allowOrigin, $url ) ) {
-					if ( ! isset( $_COOKIE[ $cookie_name ] ) ) {
-						setcookie( $cookie_name, $cookie_value, time() + $this->cookieExpiry ); // 86400 = 1 day
-					}
-				} else {
-					if ( $this->redirectMethod == "unauthorised_access_page" ) {
-						wp_redirect( $this->redirectPage );
-						exit();
-					} else {
-						die( $this->redirectMsg );
-					}
-				}
-			}
+//            $link = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+            $cookie_name = "access_site";
+            $cookie_value = "access_site";
+            $url = wp_get_raw_referer();
+            if (!isset($_COOKIE[$cookie_name])) {
+                if (str_contains($this->allowOrigin, $url)) {
+                    if (!isset($_COOKIE[$cookie_name])) {
+                        setcookie($cookie_name, $cookie_value, time() + $this->cookieExpiry); // 86400 = 1 day
+                    }
+                } else {
+                    if ($this->redirectMethod == "unauthorised_access_page") {
+                        wp_redirect($this->redirectPage);
+                        exit();
+                    } else {
+                        die($this->redirectMsg);
+                    }
+                }
+            }
 		}
 	}
 }
