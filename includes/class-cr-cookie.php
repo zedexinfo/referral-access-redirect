@@ -12,8 +12,10 @@ if ( ! class_exists( "CrCookie" ) ) {
 		protected $redirectPage;
 		protected $redirectMsg;
 		protected $redirectMethod;
+        protected $cookieName;
 
 		public function __construct() {
+            $this->cookieName = get_option('cookie_name_option');
 			$this->allowOrigin    = get_option( 'access_page_option' );
 			$this->pageRedirect   = get_option( 'redirect_page_option' );
 			$this->cookieExpiry   = get_option( 'cookie_expiry_option' );
@@ -30,6 +32,7 @@ if ( ! class_exists( "CrCookie" ) ) {
 			if ( $this->interval && $this->pageRedirect && $this->cookieExpiry && $this->allowOrigin ) {
 				wp_enqueue_script( 'cookie_redirect', CR_JS_PATH . 'cookie_redirect.js', [], time(), true );
 				wp_localize_script( 'cookie_redirect', 'cookie_object', array(
+                    'cookie_name' => get_option('cookie_name_option'),
 					'redirect_page'    => get_option( 'redirect_page_option' ),
 					'interval_timeout' => get_option( 'interval_timeout_option' )
 				) );
@@ -45,21 +48,21 @@ if ( ! class_exists( "CrCookie" ) ) {
 		}
 
 		public function set_cookie_and_redirect() {
-//            $link = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-            $cookie_name = "access_site";
-            $cookie_value = "access_site";
-            $url = wp_get_raw_referer();
-            if (!isset($_COOKIE[$cookie_name])) {
-                if (str_contains($this->allowOrigin, $url)) {
-                    if (!isset($_COOKIE[$cookie_name])) {
-                        setcookie($cookie_name, $cookie_value, time() + $this->cookieExpiry); // 86400 = 1 day
-                    }
-                } else {
-                    if ($this->redirectMethod == "unauthorised_access_page") {
-                        wp_redirect($this->redirectPage);
-                        exit();
+            if (!str_contains($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'], 'wp-login.php')) {
+                $cookie_value = "cookie_redirect";
+                $url = wp_get_raw_referer();
+                if (!isset($_COOKIE[$this->cookieName])) {
+                    if (str_contains($this->allowOrigin, $url)) {
+                        if (!isset($_COOKIE[$this->cookieName])) {
+                            setcookie($this->cookieName, $cookie_value, time() + $this->cookieExpiry); // 86400 = 1 day
+                        }
                     } else {
-                        die($this->redirectMsg);
+                        if ($this->redirectMethod == "unauthorised_access_page") {
+                            wp_redirect($this->redirectPage);
+                            exit();
+                        } else {
+                            die($this->redirectMsg);
+                        }
                     }
                 }
             }

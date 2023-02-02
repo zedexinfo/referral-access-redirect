@@ -17,8 +17,9 @@ if (!class_exists("cookieRedirect")) {
 
         public static function defaultValues(){
             $default_values = [
-                'cookie_expiry_option' => 40,
-                'interval_timeout_option' => 5,
+                'cookie_name_option' => 'cookie-redirect',
+                'cookie_expiry_option' => 60,
+                'interval_timeout_option' => 10,
                 'redirect_method_option' => 'unauthorised_access_message',
                 'unauthorised_access_message_option' => 'You have no permission to access this page'
             ];
@@ -26,6 +27,17 @@ if (!class_exists("cookieRedirect")) {
             foreach ($default_values as $key => $value){
                 if (get_option($key) == false) {
                     update_option($key, $value);
+                }
+            }
+        }
+
+        public static function deleteValues()
+        {
+            $delete_values = ['cookie_name_option','cookie_expiry_option', 'interval_timeout_option', 'access_page_option', 'redirect_page_option', 'redirect_method_option', 'unauthorised_access_url_option', 'unauthorised_access_message_option'];
+
+            if (get_option('delete_values_option') == 1) {
+                foreach ($delete_values as $delete_value) {
+                    update_option($delete_value, '');
                 }
             }
         }
