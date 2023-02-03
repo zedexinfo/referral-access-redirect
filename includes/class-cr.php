@@ -17,7 +17,7 @@ if (!class_exists("cookieRedirect")) {
 
         public static function defaultValues(){
             $default_values = [
-                'cookie_name_option' => 'cookie-redirect',
+                'cookie_name_option' => 'cookie_redirect',
                 'cookie_expiry_option' => 60,
                 'interval_timeout_option' => 10,
                 'redirect_method_option' => 'unauthorised_access_message',
@@ -37,7 +37,7 @@ if (!class_exists("cookieRedirect")) {
 
             if (get_option('delete_values_option') == 1) {
                 foreach ($delete_values as $delete_value) {
-                    update_option($delete_value, '');
+                    delete_option($delete_value);
                 }
             }
         }
