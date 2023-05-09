@@ -25,4 +25,8 @@ function cookie_redirect_init(): cookieRedirect
     return cookieRedirect::getInstance();
 }
 
+register_activation_hook(__FILE__, [cookieRedirect::class, 'defaultValues']);
+
+register_deactivation_hook(__FILE__, [cookieRedirect::class, 'deleteValues']);
+
 cookie_redirect_init();
