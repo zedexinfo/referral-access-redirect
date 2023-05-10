@@ -31,11 +31,18 @@ if ( ! class_exists( "CrCookie" ) ) {
 		public function addScript() {
 			if ( $this->interval && $this->pageRedirect && $this->cookieExpiry && $this->allowOrigin ) {
 				wp_enqueue_script( 'cookie_redirect', CR_JS_PATH . 'cookie_redirect.js', [], time(), true );
-				wp_localize_script( 'cookie_redirect', 'cookie_object', array(
+//				wp_localize_script( 'cookie_redirect', 'cookie_object', array(
+//                    'cookie_name' => get_option('cookie_name_option'),
+//					'redirect_page'    => get_option( 'redirect_page_option' ),
+//					'interval_timeout' => get_option( 'interval_timeout_option' )
+//				) );
+                $data = array(
                     'cookie_name' => get_option('cookie_name_option'),
-					'redirect_page'    => get_option( 'redirect_page_option' ),
-					'interval_timeout' => get_option( 'interval_timeout_option' )
-				) );
+                    'redirect_page'    => get_option( 'redirect_page_option' ),
+                    'interval_timeout' => get_option( 'interval_timeout_option' )
+                );
+                $data = apply_filters('cookie_localize', $data);
+                wp_localize_script( 'cookie_redirect', 'cookie_object', $data );
 			}
 		}
 

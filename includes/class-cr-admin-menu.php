@@ -100,78 +100,151 @@ if ( ! class_exists( "CrAdminMenu" ) ) {
         }
 
 		public function register_Cd_settings() {
-            $admin_menu = [
-                    'cookie_name_option' => array(
-                            'id' => 'cookie_name',
-                            'title' => 'Cookie Name',
-                            'callback' => 'cookie_name_callback',
-                            'page' => 'cd-setting-section',
-                            'section' => 'Cd_admin_setting_section',
-                            'validation callback' => 'cookie_name_field_validation'
-                    ),
-                    'cookie_expiry_option' => array(
-                            'id' => 'cookie_expiry_time',
-                            'title' => 'Cookie Expiry Time (in seconds)',
-                            'callback' => 'cookie_expiry_callback',
-                            'page' => 'cd-setting-section',
-                            'section' => 'Cd_admin_setting_section',
-                            'validation callback' => 'cookie_expiry_time_validation'
-                    ),
-                    'interval_timeout_option' => array(
-                            'id' => 'interval_timeout',
-                            'title' => 'Set Interval Time (in seconds)',
-                            'callback' => 'interval_timeout_callback',
-                            'page' => 'cd-setting-section',
-                            'section' => 'Cd_admin_setting_section',
-                            'validation callback' => 'interval_timeout_validation'
-                    ),
-                    'access_page_option' => array(
-                            'id' => 'access_page_url',
-                            'title' => 'Allowed Origin',
-                            'callback' => 'access_page_callback',
-                            'page' => 'cd-setting-section',
-                            'section' => 'Cd_admin_setting_section',
-                            'validation callback' => 'access_page_url_validation'
-                    ),
-                    'redirect_page_option' => array(
-                            'id' => 'redirect_page_url',
-                            'title' => 'URL of the page to be redirected to when cookie expires',
-                            'callback' => 'redirect_page_callback',
-                            'page' => 'cd-setting-section',
-                            'section' => 'Cd_admin_setting_section',
-                            'validation callback' => 'redirect_page_url_validation'
-                    ),
-                    'redirect_method_option' => array(
-                            'id' => 'redirect_method',
-                            'title' => 'Unauthorised access redirect Method',
-                            'callback' => 'redirect_method_callback',
-                            'page' => 'cd-setting-section',
-                            'section' => 'Cd_admin_setting_section'
-                    ),
-                    'unauthorised_access_url_option' => array(
-                            'id' => 'unauthorised_access_url',
-                            'title' => 'URL of the page to be redirected to when unauthorised access',
-                            'callback' => 'unauthorised_access_url_callback',
-                            'page' => 'cd-setting-section',
-                            'section' => 'Cd_admin_setting_section',
-                            'validation callback' => 'unauthorised_access_url_field_validation'
-                    ),
-                    'unauthorised_access_message_option' => array(
-                            'id' => 'unauthorised_access_message',
-                            'title' => 'Message to be shown when unauthorised access',
-                            'callback' => 'unauthorised_access_message_callback',
-                            'page' => 'cd-setting-section',
-                            'section' => 'Cd_admin_setting_section',
-                            'validation callback' => 'unauthorised_access_message_validation'
-                    ),
-                    'delete_values_option' => array(
-                            'id' => 'delete_values',
-                            'title' => 'Delete values on plugin deactivation',
-                            'callback' => 'delete_values_callback',
-                            'page' => 'cd-setting-section',
-                            'section' => 'Cd_admin_setting_section'
-                    )
-            ];
+//            $admin_menu = [
+//                    'cookie_name_option' => array(
+//                            'id' => 'cookie_name',
+//                            'title' => 'Cookie Name',
+//                            'callback' => 'cookie_name_callback',
+//                            'page' => 'cd-setting-section',
+//                            'section' => 'Cd_admin_setting_section',
+//                            'validation callback' => 'cookie_name_field_validation'
+//                    ),
+//                    'cookie_expiry_option' => array(
+//                            'id' => 'cookie_expiry_time',
+//                            'title' => 'Cookie Expiry Time (in seconds)',
+//                            'callback' => 'cookie_expiry_callback',
+//                            'page' => 'cd-setting-section',
+//                            'section' => 'Cd_admin_setting_section',
+//                            'validation callback' => 'cookie_expiry_time_validation'
+//                    ),
+//                    'interval_timeout_option' => array(
+//                            'id' => 'interval_timeout',
+//                            'title' => 'Set Interval Time (in seconds)',
+//                            'callback' => 'interval_timeout_callback',
+//                            'page' => 'cd-setting-section',
+//                            'section' => 'Cd_admin_setting_section',
+//                            'validation callback' => 'interval_timeout_validation'
+//                    ),
+//                    'access_page_option' => array(
+//                            'id' => 'access_page_url',
+//                            'title' => 'Allowed Origin',
+//                            'callback' => 'access_page_callback',
+//                            'page' => 'cd-setting-section',
+//                            'section' => 'Cd_admin_setting_section',
+//                            'validation callback' => 'access_page_url_validation'
+//                    ),
+//                    'redirect_page_option' => array(
+//                            'id' => 'redirect_page_url',
+//                            'title' => 'URL of the page to be redirected to when cookie expires',
+//                            'callback' => 'redirect_page_callback',
+//                            'page' => 'cd-setting-section',
+//                            'section' => 'Cd_admin_setting_section',
+//                            'validation callback' => 'redirect_page_url_validation'
+//                    ),
+//                    'redirect_method_option' => array(
+//                            'id' => 'redirect_method',
+//                            'title' => 'Unauthorised access redirect Method',
+//                            'callback' => 'redirect_method_callback',
+//                            'page' => 'cd-setting-section',
+//                            'section' => 'Cd_admin_setting_section'
+//                    ),
+//                    'unauthorised_access_url_option' => array(
+//                            'id' => 'unauthorised_access_url',
+//                            'title' => 'URL of the page to be redirected to when unauthorised access',
+//                            'callback' => 'unauthorised_access_url_callback',
+//                            'page' => 'cd-setting-section',
+//                            'section' => 'Cd_admin_setting_section',
+//                            'validation callback' => 'unauthorised_access_url_field_validation'
+//                    ),
+//                    'unauthorised_access_message_option' => array(
+//                            'id' => 'unauthorised_access_message',
+//                            'title' => 'Message to be shown when unauthorised access',
+//                            'callback' => 'unauthorised_access_message_callback',
+//                            'page' => 'cd-setting-section',
+//                            'section' => 'Cd_admin_setting_section',
+//                            'validation callback' => 'unauthorised_access_message_validation'
+//                    ),
+//                    'delete_values_option' => array(
+//                            'id' => 'delete_values',
+//                            'title' => 'Delete values on plugin deactivation',
+//                            'callback' => 'delete_values_callback',
+//                            'page' => 'cd-setting-section',
+//                            'section' => 'Cd_admin_setting_section'
+//                    )
+//            ];
+
+            $admin_menu = apply_filters('cd_admin_menu_filter', [
+                'cookie_name_option' => array(
+                    'id' => 'cookie_name',
+                    'title' => 'Cookie Name',
+                    'callback' => 'cookie_name_callback',
+                    'page' => 'cd-setting-section',
+                    'section' => 'Cd_admin_setting_section',
+                    'validation callback' => 'cookie_name_field_validation'
+                ),
+                'cookie_expiry_option' => array(
+                    'id' => 'cookie_expiry_time',
+                    'title' => 'Cookie Expiry Time (in seconds)',
+                    'callback' => 'cookie_expiry_callback',
+                    'page' => 'cd-setting-section',
+                    'section' => 'Cd_admin_setting_section',
+                    'validation callback' => 'cookie_expiry_time_validation'
+                ),
+                'interval_timeout_option' => array(
+                    'id' => 'interval_timeout',
+                    'title' => 'Set Interval Time (in seconds)',
+                    'callback' => 'interval_timeout_callback',
+                    'page' => 'cd-setting-section',
+                    'section' => 'Cd_admin_setting_section',
+                    'validation callback' => 'interval_timeout_validation'
+                ),
+                'access_page_option' => array(
+                    'id' => 'access_page_url',
+                    'title' => 'Allowed Origin',
+                    'callback' => 'access_page_callback',
+                    'page' => 'cd-setting-section',
+                    'section' => 'Cd_admin_setting_section',
+                    'validation callback' => 'access_page_url_validation'
+                ),
+                'redirect_page_option' => array(
+                    'id' => 'redirect_page_url',
+                    'title' => 'URL of the page to be redirected to when cookie expires',
+                    'callback' => 'redirect_page_callback',
+                    'page' => 'cd-setting-section',
+                    'section' => 'Cd_admin_setting_section',
+                    'validation callback' => 'redirect_page_url_validation'
+                ),
+                'redirect_method_option' => array(
+                    'id' => 'redirect_method',
+                    'title' => 'Unauthorised access redirect Method',
+                    'callback' => 'redirect_method_callback',
+                    'page' => 'cd-setting-section',
+                    'section' => 'Cd_admin_setting_section'
+                ),
+                'unauthorised_access_url_option' => array(
+                    'id' => 'unauthorised_access_url',
+                    'title' => 'URL of the page to be redirected to when unauthorised access',
+                    'callback' => 'unauthorised_access_url_callback',
+                    'page' => 'cd-setting-section',
+                    'section' => 'Cd_admin_setting_section',
+                    'validation callback' => 'unauthorised_access_url_field_validation'
+                ),
+                'unauthorised_access_message_option' => array(
+                    'id' => 'unauthorised_access_message',
+                    'title' => 'Message to be shown when unauthorised access',
+                    'callback' => 'unauthorised_access_message_callback',
+                    'page' => 'cd-setting-section',
+                    'section' => 'Cd_admin_setting_section',
+                    'validation callback' => 'unauthorised_access_message_validation'
+                ),
+                'delete_values_option' => array(
+                    'id' => 'delete_values',
+                    'title' => 'Delete values on plugin deactivation',
+                    'callback' => 'delete_values_callback',
+                    'page' => 'cd-setting-section',
+                    'section' => 'Cd_admin_setting_section'
+                )
+            ]);
 
 			add_settings_section(
 				__( 'Cd_admin_setting_section' ),
