@@ -1,10 +1,11 @@
 <?php
 /*
-  Plugin Name: Cookie Redirect
-  Description: Plugin to redirect to a website when cookie expires
-  Version: 1.0.0
-  Author: Dev@StableWP
-  Author URI: https://dukeheightsv2.stablewplite.com/
+  * Plugin Name: Cookie Redirect
+  * Description: The cookie redirection plugin enhances website security by redirecting users from a specific website to a designated page. It sets a cookie to track the allowed duration of their stay. If a user doesn't come from the referral site, they are automatically redirected to an error page. This plugin ensures the integrity of referral-based traffic and provides a customized experience based on the referral source.
+  * Version: 1.0.0
+  * Author: Dev@Zedex
+  * Author URI: https://zedexinfo.com/
+  * License:      GPL v2 or later
 */
 
 if (!defined('ABSPATH')){ die(); }
