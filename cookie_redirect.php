@@ -10,7 +10,7 @@
 
 if (!defined('ABSPATH')){ die(); }
 
-if (!defined('CR_PLUGIN_DIR')){
+if (!defined('RFACRDT_PLUGIN_DIR')){
     define('RFACRDT_PLUGIN_DIR',untrailingslashit( plugin_dir_path( __FILE__ )));
     define('RFACRDT_INCLUDES_PATH',untrailingslashit( plugin_dir_path( __FILE__ ) ) . '/includes/');
     define('RFACRDT_TEMPLATES_PATH',untrailingslashit( plugin_dir_path( __FILE__ ) ) . '/templates/');
