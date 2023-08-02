@@ -3,8 +3,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-if (!class_exists("cookieRedirect")) {
-    class cookieRedirect
+if (!class_exists("RFACRDTcookieRedirect")) {
+    class RFACRDTcookieRedirect
     {
         protected static $instance;
         public $CrAdminMenu;
@@ -15,7 +15,7 @@ if (!class_exists("cookieRedirect")) {
             add_action('plugins_loaded', array($this, 'initialize'), 20);
         }
 
-        public static function defaultValues(){
+        public static function RFACRDT_defaultValues(){
             $default_values = [
                 'cookie_name_option' => 'cookie_redirect',
                 'cookie_expiry_option' => 60,
@@ -31,7 +31,7 @@ if (!class_exists("cookieRedirect")) {
             }
         }
 
-        public static function deleteValues()
+        public static function RFACRDT_deleteValues()
         {
             $delete_values = ['cookie_name_option','cookie_expiry_option', 'interval_timeout_option', 'access_page_option', 'redirect_page_option', 'redirect_method_option', 'unauthorised_access_url_option', 'unauthorised_access_message_option'];
 
@@ -59,18 +59,18 @@ if (!class_exists("cookieRedirect")) {
 
         public function includes()
         {
-            include_once CR_INCLUDES_PATH . 'class-cr-admin-menu.php';
+            include_once RFACRDT_INCLUDES_PATH . 'class-cr-admin-menu.php';
             if (!is_admin()) {
-                include_once CR_INCLUDES_PATH . 'class-cr-cookie.php';
+                include_once RFACRDT_INCLUDES_PATH . 'class-cr-cookie.php';
             }
 
         }
 
         public function init()
         {
-            $this->CrAdminMenu = CrAdminMenu::getInstance();
+            $this->CrAdminMenu = RFACRDTCrAdminMenu::getInstance();
                 if (!is_admin()) {
-                    $this->CrCookie = CrCookie::getInstance();
+                    $this->CrCookie = RFACRDTCrCookie::getInstance();
                 }
             }
         }
