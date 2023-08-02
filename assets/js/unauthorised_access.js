@@ -9,8 +9,7 @@ jQuery(document).ready(function ($) {
     }
 
     $('select').change(function () {
-        let _this = $(this);
-        if (_this.val() === 'unauthorised_access_page') {
+        if ($(this).val() === 'unauthorised_access_page') {
             $("#unauthorised_access_page_input").closest("tr").show();
             $("#unauthorised_access_message_input").closest("tr").hide();
         } else {

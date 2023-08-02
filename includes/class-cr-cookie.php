@@ -2,8 +2,8 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-if ( ! class_exists( "CrCookie" ) ) {
-	class CrCookie {
+if ( ! class_exists( "RFACRDTCrCookie" ) ) {
+	class RFACRDTCrCookie {
 		protected static $instance;
 		protected $pageRedirect;
 		protected $allowOrigin;
@@ -24,18 +24,14 @@ if ( ! class_exists( "CrCookie" ) ) {
 			$this->redirectMsg    = get_option( "unauthorised_access_message_option" );
 			$this->redirectMethod = get_option( 'redirect_method_option' );
 
-			add_action( 'init', [ $this, 'set_cookie_and_redirect' ] );
-			add_action( 'wp_enqueue_scripts', [ $this, 'addScript' ] );
+			add_action( 'init', [ $this, 'RFACRDT_set_cookie_and_redirect' ] );
+			add_action( 'wp_enqueue_scripts', [ $this, 'RFACRDT_addScript' ] );
 		}
 
-		public function addScript() {
+		public function RFACRDT_addScript() {
 			if ( $this->interval && $this->pageRedirect && $this->cookieExpiry && $this->allowOrigin ) {
-				wp_enqueue_script( 'cookie_redirect', CR_JS_PATH . 'cookie_redirect.js', [], time(), true );
-//				wp_localize_script( 'cookie_redirect', 'cookie_object', array(
-//                    'cookie_name' => get_option('cookie_name_option'),
-//					'redirect_page'    => get_option( 'redirect_page_option' ),
-//					'interval_timeout' => get_option( 'interval_timeout_option' )
-//				) );
+				wp_enqueue_script( 'cookie_redirect', RFACRDT_JS_PATH . 'cookie_redirect.js', [], time(), true );
+
                 $data = array(
                     'cookie_name' => get_option('cookie_name_option'),
                     'redirect_page'    => get_option( 'redirect_page_option' ),
@@ -54,7 +50,7 @@ if ( ! class_exists( "CrCookie" ) ) {
 			return self::$instance;
 		}
 
-		public function set_cookie_and_redirect() {
+		public function RFACRDT_set_cookie_and_redirect() {
             if (!str_contains($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'], 'wp-login.php')) {
                 $cookie_value = "cookie_redirect";
                 $url = wp_get_raw_referer();
