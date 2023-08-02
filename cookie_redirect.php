@@ -17,7 +17,7 @@ if (!defined('RFACRDT_PLUGIN_DIR')){
     define('RFACRDT_JS_PATH', untrailingslashit( plugins_url( basename( plugin_dir_path( __FILE__ ) ), basename( __FILE__ ) ) ) . '/assets/js/' );
 }
 
-if ( ! class_exists( 'cookieRedirect' ) ) {
+if ( ! class_exists( 'RFACRDTcookieRedirect' ) ) {
     include_once RFACRDT_INCLUDES_PATH . "class-cr.php";
 }
 
