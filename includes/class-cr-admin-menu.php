@@ -184,8 +184,8 @@ if ( ! class_exists( "RFACRDTCrAdminMenu" ) ) {
             foreach ($admin_menu as $key => $value) {
                 register_setting('cd-setting-section', $key, [$this, $value["validation callback"]]);
                 add_settings_field(
-                    __($value["id"]),
-                    __($value["title"]),
+                    $value["id"],
+                    $value["title"],
                     [$this, $value["callback"]],
                     $value["page"],
                     $value["section"]
