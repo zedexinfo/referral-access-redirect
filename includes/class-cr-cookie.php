@@ -15,14 +15,14 @@ if ( ! class_exists( "RFACRDTCrCookie" ) ) {
 		protected $cookieName;
 
 		public function __construct() {
-			$this->cookieName     = get_option( 'cookie_name_option' );
-			$this->allowOrigin    = get_option( 'access_page_option' );
-			$this->pageRedirect   = get_option( 'redirect_page_option' );
-			$this->cookieExpiry   = get_option( 'cookie_expiry_option' );
-			$this->interval       = get_option( 'interval_timeout_option' );
-			$this->redirectPage   = get_option( "unauthorised_access_url_option" );
-			$this->redirectMsg    = get_option( "unauthorised_access_message_option" );
-			$this->redirectMethod = get_option( 'redirect_method_option' );
+			$this->cookieName     = get_option( 'RFACRDT_cookie_name_option' );
+			$this->allowOrigin    = get_option( 'RFACRDT_access_page_option' );
+			$this->pageRedirect   = get_option( 'RFACRDT_redirect_page_option' );
+			$this->cookieExpiry   = get_option( 'RFACRDT_cookie_expiry_option' );
+			$this->interval       = get_option( 'RFACRDT_interval_timeout_option' );
+			$this->redirectPage   = get_option( "RFACRDT_unauthorised_access_url_option" );
+			$this->redirectMsg    = get_option( "RFACRDT_unauthorised_access_message_option" );
+			$this->redirectMethod = get_option( 'RFACRDT_redirect_method_option' );
 
 			add_action( 'init', [ $this, 'RFACRDT_set_cookie_and_redirect' ] );
 			add_action( 'wp_enqueue_scripts', [ $this, 'RFACRDT_addScript' ] );
@@ -33,9 +33,9 @@ if ( ! class_exists( "RFACRDTCrCookie" ) ) {
 				wp_enqueue_script( 'cookie_redirect', RFACRDT_JS_PATH . 'cookie_redirect.js', [], time(), true );
 
 				$data = array(
-					'cookie_name'      => get_option( 'cookie_name_option' ),
-					'redirect_page'    => get_option( 'redirect_page_option' ),
-					'interval_timeout' => get_option( 'interval_timeout_option' )
+					'cookie_name'      => get_option( 'RFACRDT_cookie_name_option' ),
+					'redirect_page'    => get_option( 'RFACRDT_redirect_page_option' ),
+					'interval_timeout' => get_option( 'RFACRDT_interval_timeout_option' )
 				);
 				$data = apply_filters( 'cookie_localize', $data );
 				wp_localize_script( 'cookie_redirect', 'cookie_object', $data );

@@ -15,11 +15,11 @@ if ( ! class_exists( "RFACRDTcookieRedirect" ) ) {
 
 		public static function RFACRDT_defaultValues() {
 			$default_values = [
-				'cookie_name_option'                 => 'cookie_redirect',
-				'cookie_expiry_option'               => 60,
-				'interval_timeout_option'            => 10,
-				'redirect_method_option'             => 'unauthorised_access_message',
-				'unauthorised_access_message_option' => 'You have no permission to access this page'
+				'RFACRDT_cookie_name_option'                 => 'cookie_redirect',
+				'RFACRDT_cookie_expiry_option'               => 60,
+				'RFACRDT_interval_timeout_option'            => 10,
+				'RFACRDT_redirect_method_option'             => 'unauthorised_access_message',
+				'RFACRDT_unauthorised_access_message_option' => 'You have no permission to access this page'
 			];
 
 			foreach ( $default_values as $key => $value ) {
@@ -31,17 +31,17 @@ if ( ! class_exists( "RFACRDTcookieRedirect" ) ) {
 
 		public static function RFACRDT_deleteValues() {
 			$delete_values = [
-				'cookie_name_option',
-				'cookie_expiry_option',
-				'interval_timeout_option',
-				'access_page_option',
-				'redirect_page_option',
-				'redirect_method_option',
-				'unauthorised_access_url_option',
-				'unauthorised_access_message_option'
+				'RFACRDT_cookie_name_option',
+				'RFACRDT_cookie_expiry_option',
+				'RFACRDT_interval_timeout_option',
+				'RFACRDT_access_page_option',
+				'RFACRDT_redirect_page_option',
+				'RFACRDT_redirect_method_option',
+				'RFACRDT_unauthorised_access_url_option',
+				'RFACRDT_unauthorised_access_message_option'
 			];
 
-			if ( get_option( 'delete_values_option' ) == 1 ) {
+			if ( get_option( 'RFACRDT_delete_values_option' ) == 1 ) {
 				foreach ( $delete_values as $delete_value ) {
 					delete_option( $delete_value );
 				}
